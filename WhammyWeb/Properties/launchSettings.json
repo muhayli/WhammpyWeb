@@ -1,18 +1,17 @@
-﻿{
+{
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
       "applicationUrl": "http://localhost:23103",
-      "sslPort": 0
+      "sslPort": 44317
     }
   },
   "profiles": {
     "WhammyWeb": {
       "commandName": "Project",
-      "dotnetRunMessages": true,
       "launchBrowser": true,
-      "applicationUrl": "http://localhost:5213",
+      "applicationUrl": "http://localhost:17640",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -26,5 +25,3 @@
     }
   }
 }
-
-

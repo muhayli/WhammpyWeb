@@ -1,0 +1,18 @@
+﻿@page
+@model WhammyWeb.Pages.Categories.CreateModel
+
+<form method="post">
+    <div class="border p-3 mt-4">
+        <h2 class="text-primary pl-3">Create Category</h2>
+        <hr />
+        <div class="mb-3">
+            <label asp-for="Category.Name"></label>
+            <input asp-for="Category.Name" class="form-control" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="Category.DisplayOrder"></label>
+            <input asp-for="Category.DisplayOrder" class="form-control" />
+        </div>
+        <button type="submit" class="btn px-5 btn-primary">Create</button>
+    </div>
+</form>
