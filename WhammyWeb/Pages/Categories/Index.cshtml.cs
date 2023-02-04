@@ -17,7 +17,7 @@ namespace WhammyWeb.Pages.Categories
 
         public IndexModel(AppDbContext dbContext) => this._dbContext = dbContext;
 
-        public  void OnGet()
+        public void OnGet()
         {
             Categories = _dbContext.categories;
         }

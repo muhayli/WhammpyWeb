@@ -9,32 +9,29 @@ using WhammyWeb.Models;
 
 namespace WhammyWeb.Pages.Categories
 {
-    public class CreateModel : PageModel
+    public class DeleteModel : PageModel
     {
         private readonly AppDbContext _dbContext;
 
-        public CreateModel(AppDbContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
+        public DeleteModel(AppDbContext dbContext) => _dbContext = dbContext;
+
+
         [BindProperty]
         public Category Category { get; set; }
 
-        public void OnGet()
+        public async void OnGet(int id)
         {
+            //Category = await _dbContext.categories.FindAsync(id);
+            Category = _dbContext.categories.Find(id);
         }
         public async Task<IActionResult> OnPost()
         {
-            if (Category.Name == Category.DisplayOrder.ToString())
+            var categoryFromDb = _dbContext.categories.Find(Category.Id);
+            if (categoryFromDb != null)
             {
-                ModelState.AddModelError(string.Empty, "The DisplayOrder cannot exactly match the Name!");
-            }
-            if (ModelState.IsValid)
-            {
-
-                await _dbContext.AddAsync(Category);
+                _dbContext.categories.Remove(categoryFromDb);
                 await _dbContext.SaveChangesAsync();
-                TempData["success"] = "Category created successfully";
+                TempData["success"] = "Category deleted successfully";
                 return RedirectToPage("Index"); // redirects to the home page after submitting.
             }
             return Page();

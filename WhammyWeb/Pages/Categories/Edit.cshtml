@@ -1,10 +1,10 @@
 ﻿@page
-@model WhammyWeb.Pages.Categories.CreateModel
-
+@model WhammyWeb.Pages.Categories.EditModel
 
 <form method="post">
+    <input asp-for="Category.Id" type="hidden" />
     <div class="border p-3 mt-4">
-        <h2 class="text-primary pl-3">Create Category</h2>
+        <h2 class="text-primary pl-3">Edit Category</h2>
         <hr />
         <div asp-validation-summary="All"></div>
         <div class="mb-3">
@@ -17,7 +17,7 @@
             <input asp-for="Category.DisplayOrder" class="form-control" />
             <span asp-validation-for="Category.DisplayOrder" class="text-danger"></span>
         </div>
-        <button type="submit" class="btn px-5 btn-primary">Create</button>
+        <button type="submit" class="btn px-5 btn-primary">Update</button>
         <a asp-page="Index" class="btn px-5 btn-secondary">Back to list</a>
     </div>
 </form>

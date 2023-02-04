@@ -9,19 +9,20 @@ using WhammyWeb.Models;
 
 namespace WhammyWeb.Pages.Categories
 {
-    public class CreateModel : PageModel
+    public class EditModel : PageModel
     {
         private readonly AppDbContext _dbContext;
 
-        public CreateModel(AppDbContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
+        public EditModel(AppDbContext dbContext) => _dbContext = dbContext;
+
+
         [BindProperty]
         public Category Category { get; set; }
 
-        public void OnGet()
+        public async void OnGet(int id)
         {
+            //Category = await _dbContext.categories.FindAsync(id);
+            Category = _dbContext.categories.Find(id);
         }
         public async Task<IActionResult> OnPost()
         {
@@ -32,9 +33,9 @@ namespace WhammyWeb.Pages.Categories
             if (ModelState.IsValid)
             {
 
-                await _dbContext.AddAsync(Category);
+                _dbContext.categories.Update(Category);
                 await _dbContext.SaveChangesAsync();
-                TempData["success"] = "Category created successfully";
+                TempData["success"] = "Category updated successfully";
                 return RedirectToPage("Index"); // redirects to the home page after submitting.
             }
             return Page();
