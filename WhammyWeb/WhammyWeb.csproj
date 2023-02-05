@@ -11,10 +11,12 @@
     <None Remove="Microsoft.EntityFrameworkCore" />
     <None Remove="Microsoft.EntityFrameworkCore.SqlServer" />
     <None Remove="Microsoft.EntityFrameworkCore.Tools" />
-    <None Remove="Pages\Categories\" />
     <None Remove="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
     <None Remove="Swashbuckle.AspNetCore" />
     <None Remove="Microsoft.EntityFrameworkCore.Sqlite" />
+    <None Remove="Pages\Admin\" />
+    <None Remove="Pages\Admin\Categories\" />
+    <None Remove="Pages\Customer\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.10" />
@@ -29,6 +31,16 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.7" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Pages\Categories\" />
+    <Folder Include="Pages\Admin\" />
+    <Folder Include="Pages\Admin\Categories\" />
+    <Folder Include="Pages\Customer\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Whammy.Models\Whammy.Models.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+    <ProjectReference Include="..\Whammy.DataAccess\Whammy.DataAccess.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
 </Project>

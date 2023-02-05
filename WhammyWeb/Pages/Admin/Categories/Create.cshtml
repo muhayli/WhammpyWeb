@@ -1,0 +1,33 @@
+﻿@page
+@model WhammyWeb.Pages.Admin.Categories.CreateModel
+
+
+<form method="post">
+    <div class="border p-3 mt-4">
+        <h2 class="text-primary pl-3">Create Category</h2>
+        <hr />
+        <div asp-validation-summary="All"></div>
+        <div class="mb-3">
+            <label asp-for="Category.Name"></label>
+            <input asp-for="Category.Name" class="form-control name-input" />
+            <span asp-validation-for="Category.Name" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for="Category.DisplayOrder"></label>
+            <input asp-for="Category.DisplayOrder" class="form-control" />
+            <span asp-validation-for="Category.DisplayOrder" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn px-5 btn-primary">Create</button>
+        <a asp-page="Index" class="btn px-5 btn-secondary">Back to list</a>
+    </div>
+</form>
+
+
+@*can add custom js code here*@
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+        @*<script></script>*@
+
+    }
+}

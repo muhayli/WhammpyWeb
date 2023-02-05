@@ -1,12 +1,12 @@
-﻿using WhammyWeb.Data;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Whammy.DataAccess.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
-builder.Services.AddDbContext<AppDbContext>(opt=>opt.UseSqlServer(
+builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")
     ));
 
@@ -18,7 +18,7 @@ if (!app.Environment.IsDevelopment())
 
 
     app.UseExceptionHandler("/Error");
-    
+
 
 }
 app.UseStaticFiles();

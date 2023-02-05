@@ -1,5 +1,5 @@
 ﻿@page
-@model WhammyWeb.Pages.Categories.CreateModel
+@model WhammyWeb.Pages.Admin.FoodTypes.CreateModel
 
 
 <form method="post">
@@ -8,14 +8,9 @@
         <hr />
         <div asp-validation-summary="All"></div>
         <div class="mb-3">
-            <label asp-for="Category.Name"></label>
-            <input asp-for="Category.Name" class="form-control name-input" />
-            <span asp-validation-for="Category.Name" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="Category.DisplayOrder"></label>
-            <input asp-for="Category.DisplayOrder" class="form-control" />
-            <span asp-validation-for="Category.DisplayOrder" class="text-danger"></span>
+            <label asp-for="FoodType.Name"></label>
+            <input asp-for="FoodType.Name" class="form-control name-input" />
+            <span asp-validation-for="FoodType.Name" class="text-danger"></span>
         </div>
         <button type="submit" class="btn px-5 btn-primary">Create</button>
         <a asp-page="Index" class="btn px-5 btn-secondary">Back to list</a>

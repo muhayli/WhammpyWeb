@@ -1,0 +1,28 @@
+﻿@page
+@model WhammyWeb.Pages.Admin.FoodTypes.EditModel
+
+<form method="post">
+    <input asp-for="FoodType.Id" type="hidden" />
+    <div class="border p-3 mt-4">
+        <h2 class="text-primary pl-3">Edit Category</h2>
+        <hr />
+        <div asp-validation-summary="All"></div>
+        <div class="mb-3">
+            <label asp-for="FoodType.Name"></label>
+            <input asp-for="FoodType.Name" class="form-control name-input" />
+            <span asp-validation-for="FoodType.Name" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn px-5 btn-primary">Update</button>
+        <a asp-page="Index" class="btn px-5 btn-secondary">Back to list</a>
+    </div>
+</form>
+
+
+@*can add custom js code here*@
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+        @*<script></script>*@
+
+    }
+}

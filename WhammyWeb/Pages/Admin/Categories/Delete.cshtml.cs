@@ -4,10 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using WhammyWeb.Data;
-using WhammyWeb.Models;
+using Whammy.DataAccess.Data;
+using Whammy.Models;
 
-namespace WhammyWeb.Pages.Categories
+namespace WhammyWeb.Pages.Admin.Categories
 {
     public class DeleteModel : PageModel
     {

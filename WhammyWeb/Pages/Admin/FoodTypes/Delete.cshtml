@@ -1,0 +1,26 @@
+﻿@page
+@model WhammyWeb.Pages.Admin.FoodTypes.DeleteModel
+
+<form method="post">
+    <input asp-for="FoodType.Id" type="hidden" />
+    <div class="border p-3 mt-4">
+        <h2 class="text-primary pl-3">Delete Category</h2>
+        <hr />
+        <div class="mb-3">
+            <label asp-for="FoodType.Name"></label>
+            <input asp-for="FoodType.Name" disabled class="form-control name-input" />
+        </div>
+        <button type="submit" class="btn px-5 btn-danger">Delete</button>
+        <a asp-page="Index" class="btn px-5 btn-secondary">Back to list</a>
+    </div>
+</form>
+
+
+@*can add custom js code here*@
+@section Scripts {
+    @{
+        <partial name="_ValidationScriptsPartial" />
+        @*<script></script>*@
+
+    }
+}
