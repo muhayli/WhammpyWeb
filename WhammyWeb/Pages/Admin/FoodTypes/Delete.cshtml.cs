@@ -5,15 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Whammy.DataAccess.Data;
+using Whammy.DataAccess.Repository.IRepository;
 using Whammy.Models;
 
 namespace WhammyWeb.Pages.Admin.FoodTypes
 {
     public class DeleteModel : PageModel
     {
-        private readonly AppDbContext _dbContext;
+        private readonly IUnitOfWork unitOfWork;
 
-        public DeleteModel(AppDbContext dbContext) => _dbContext = dbContext;
+        public DeleteModel(IUnitOfWork unitOfWork) => this.unitOfWork = unitOfWork;
 
 
         [BindProperty]
@@ -22,15 +23,15 @@ namespace WhammyWeb.Pages.Admin.FoodTypes
         public async void OnGet(int id)
         {
             //Category = await _dbContext.categories.FindAsync(id);
-            FoodType = _dbContext.foodTypes.Find(id);
+            FoodType = unitOfWork.foodType.GetFirstOrDefault(f => f.Id == id);
         }
         public async Task<IActionResult> OnPost()
         {
-            var foodTypeFromDb = _dbContext.foodTypes.Find(FoodType.Id);
+            var foodTypeFromDb = unitOfWork.foodType.GetFirstOrDefault(f => f.Id == FoodType.Id);
             if (foodTypeFromDb != null)
             {
-                _dbContext.foodTypes.Remove(foodTypeFromDb);
-                await _dbContext.SaveChangesAsync();
+                unitOfWork.foodType.Remove(foodTypeFromDb);
+                unitOfWork.Save();
                 TempData["success"] = $"{nameof(FoodType)} deleted successfully";
                 return RedirectToPage("Index"); // redirects to the home page after submitting.
             }

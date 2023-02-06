@@ -5,15 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Whammy.DataAccess.Data;
+using Whammy.DataAccess.Repository.IRepository;
 using Whammy.Models;
 
 namespace WhammyWeb.Pages.Admin.Categories
 {
     public class DeleteModel : PageModel
     {
-        private readonly AppDbContext _dbContext;
+        private readonly IUnitOfWork unitOfWork;
 
-        public DeleteModel(AppDbContext dbContext) => _dbContext = dbContext;
+        public DeleteModel(IUnitOfWork unitOfWork) => this.unitOfWork = unitOfWork;
 
 
         [BindProperty]
@@ -22,15 +23,15 @@ namespace WhammyWeb.Pages.Admin.Categories
         public async void OnGet(int id)
         {
             //Category = await _dbContext.categories.FindAsync(id);
-            Category = _dbContext.categories.Find(id);
+            Category = unitOfWork.category.GetFirstOrDefault(c => c.Id == id);
         }
         public async Task<IActionResult> OnPost()
         {
-            var categoryFromDb = _dbContext.categories.Find(Category.Id);
+            var categoryFromDb = unitOfWork.category.GetFirstOrDefault(c => c.Id == Category.Id);
             if (categoryFromDb != null)
             {
-                _dbContext.categories.Remove(categoryFromDb);
-                await _dbContext.SaveChangesAsync();
+                unitOfWork.category.Remove(categoryFromDb);
+                unitOfWork.Save();
                 TempData["success"] = "Category deleted successfully";
                 return RedirectToPage("Index"); // redirects to the home page after submitting.
             }

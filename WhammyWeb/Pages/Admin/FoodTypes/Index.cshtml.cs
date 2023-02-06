@@ -5,21 +5,22 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Whammy.DataAccess.Data;
+using Whammy.DataAccess.Repository.IRepository;
 using Whammy.Models;
 
 namespace WhammyWeb.Pages.Admin.FoodTypes
 {
     public class IndexModel : PageModel
     {
-        private readonly AppDbContext _dbContext;
+        private readonly IUnitOfWork unitOfWork;
 
         public IEnumerable<FoodType> FoodTypes { get; set; }
 
-        public IndexModel(AppDbContext dbContext) => this._dbContext = dbContext;
+        public IndexModel(IUnitOfWork unitOfWork) => this.unitOfWork = unitOfWork;
 
         public void OnGet()
         {
-            FoodTypes = _dbContext.foodTypes;
+            FoodTypes = unitOfWork.foodType.GetAll();
         }
     }
 }

@@ -5,17 +5,18 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Whammy.DataAccess.Data;
+using Whammy.DataAccess.Repository.IRepository;
 using Whammy.Models;
 
 namespace WhammyWeb.Pages.Admin.Categories
 {
     public class CreateModel : PageModel
     {
-        private readonly AppDbContext _dbContext;
+        private readonly IUnitOfWork unitOfWork;
 
-        public CreateModel(AppDbContext dbContext)
+        public CreateModel(IUnitOfWork unitOfWork)
         {
-            _dbContext = dbContext;
+            this.unitOfWork = unitOfWork;
         }
         [BindProperty]
         public Category Category { get; set; }
@@ -32,8 +33,8 @@ namespace WhammyWeb.Pages.Admin.Categories
             if (ModelState.IsValid)
             {
 
-                await _dbContext.AddAsync(Category);
-                await _dbContext.SaveChangesAsync();
+                unitOfWork.category.Add(Category);
+                unitOfWork.Save();
                 TempData["success"] = "Category created successfully";
                 return RedirectToPage("Index"); // redirects to the home page after submitting.
             }

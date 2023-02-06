@@ -5,18 +5,17 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Whammy.DataAccess.Data;
+using Whammy.DataAccess.Repository.IRepository;
 using Whammy.Models;
 
 namespace WhammyWeb.Pages.Admin.FoodTypes
 {
     public class CreateModel : PageModel
     {
-        private readonly AppDbContext _dbContext;
+        private readonly IUnitOfWork unitOfWork;
 
-        public CreateModel(AppDbContext dbContext)
-        {
-            _dbContext = dbContext;
-        }
+        public CreateModel(IUnitOfWork unitOfWork) => this.unitOfWork = unitOfWork;
+
         [BindProperty]
         public FoodType FoodType { get; set; }
 
@@ -32,8 +31,8 @@ namespace WhammyWeb.Pages.Admin.FoodTypes
             if (ModelState.IsValid)
             {
 
-                await _dbContext.foodTypes.AddAsync(FoodType);
-                await _dbContext.SaveChangesAsync();
+                unitOfWork.foodType.Add(FoodType);
+                unitOfWork.Save();
                 TempData["success"] = $"{nameof(FoodType)} created successfully";
                 return RedirectToPage("Index"); // redirects to the home page after submitting.
             }

@@ -5,15 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Whammy.DataAccess.Data;
+using Whammy.DataAccess.Repository.IRepository;
 using Whammy.Models;
 
 namespace WhammyWeb.Pages.Admin.FoodTypes
 {
     public class EditModel : PageModel
     {
-        private readonly AppDbContext _dbContext;
+        private readonly IUnitOfWork unitOfWork;
 
-        public EditModel(AppDbContext dbContext) => _dbContext = dbContext;
+        public EditModel(IUnitOfWork unitOfWork) => this.unitOfWork = unitOfWork;
 
 
         [BindProperty]
@@ -22,14 +23,14 @@ namespace WhammyWeb.Pages.Admin.FoodTypes
         public async void OnGet(int id)
         {
             //Category = await _dbContext.categories.FindAsync(id);
-            FoodType = _dbContext.foodTypes.Find(id);
+            FoodType = unitOfWork.foodType.GetFirstOrDefault(f => f.Id == id);
         }
         public async Task<IActionResult> OnPost()
         {
             if (ModelState.IsValid)
             {
-                _dbContext.foodTypes.Update(FoodType);
-                await _dbContext.SaveChangesAsync();
+                unitOfWork.foodType.Update(FoodType);
+                unitOfWork.Save();
                 TempData["success"] = $"{nameof(FoodType)} updated successfully";
                 return RedirectToPage("Index"); // redirects to the home page after submitting.
             }
