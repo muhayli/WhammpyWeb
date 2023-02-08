@@ -8,8 +8,9 @@ namespace Whammy.DataAccess.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-        public DbSet<Category> categories { get; set; }
-        public DbSet<FoodType> foodTypes { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<FoodType> FoodTypes { get; set; }
+        public DbSet<MenuItem> MenuItems { get; set; }
     }
 }
 

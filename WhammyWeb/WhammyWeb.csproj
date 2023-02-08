@@ -17,6 +17,8 @@
     <None Remove="Pages\Admin\" />
     <None Remove="Pages\Admin\Categories\" />
     <None Remove="Pages\Customer\" />
+    <None Remove="Pages\Admin\MenuItems\" />
+    <None Remove="Controllers\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.10" />
@@ -34,6 +36,10 @@
     <Folder Include="Pages\Admin\" />
     <Folder Include="Pages\Admin\Categories\" />
     <Folder Include="Pages\Customer\" />
+    <Folder Include="Pages\Admin\MenuItems\" />
+    <Folder Include="wwwroot\images\" />
+    <Folder Include="wwwroot\images\MenuItems\" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Whammy.Models\Whammy.Models.csproj">
@@ -42,5 +48,9 @@
     <ProjectReference Include="..\Whammy.DataAccess\Whammy.DataAccess.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Remove="wwwroot\images\" />
+    <Content Remove="wwwroot\images\MenuItems\" />
   </ItemGroup>
 </Project>

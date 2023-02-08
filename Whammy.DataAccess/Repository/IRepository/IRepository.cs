@@ -6,7 +6,7 @@ namespace Whammy.DataAccess.Repository.IRepository
     public interface IRepository<T> where T : class
     {
         //Get all
-        IEnumerable<T> GetAll();
+        IEnumerable<T> GetAll(string? includeProps = null);
 
         //Get single
         T GetFirstOrDefault(Expression<Func<T, bool>>? filter = null);

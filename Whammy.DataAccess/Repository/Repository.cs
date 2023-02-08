@@ -23,9 +23,16 @@ namespace Whammy.DataAccess.Repository
             dbSet.Add(entity);
         }
 
-        public IEnumerable<T> GetAll()
+        public IEnumerable<T> GetAll(string? includeProps = null)
         {
             IQueryable<T> query = dbSet;
+            if (includeProps != null)
+            {
+                foreach (var prop in includeProps.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query.Include(prop);
+                }
+            }
             return query.ToList();
         }
 

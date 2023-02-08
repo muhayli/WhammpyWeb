@@ -16,7 +16,7 @@ namespace Whammy.DataAccess.Repository
 
         public void Update(FoodType foodType)
         {
-            var obj = dbContext.foodTypes.Find(foodType.Id);
+            var obj = dbContext.FoodTypes.Find(foodType.Id);
             obj.Name = foodType.Name;
         }
     }

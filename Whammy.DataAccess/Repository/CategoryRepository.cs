@@ -20,7 +20,7 @@ namespace Whammy.DataAccess.Repository.IRepository
 
         public void Update(Category category)
         {
-            var obj = dbContext.categories.Find(category.Id);
+            var obj = dbContext.Categories.Find(category.Id);
 
             obj.Name = category.Name;
             obj.DisplayOrder = category.DisplayOrder;
