@@ -3,49 +3,75 @@
 
 
 <form method="post" enctype="multipart/form-data">
+    <input hidden asp-for="MenuItem.Id" />
     <div class="border p-3 mt-4">
-        <h2 class="text-primary pl-3">
-            @(Model.MenuItem.Id!=0 ? "Update" : "Create") Menu Item
-        </h2>
-        <hr />
-        <div asp-validation-summary="All"></div>
-        <div class="mb-3">
-            <label asp-for="MenuItem.Name"></label>
-            <input asp-for="MenuItem.Name" class="form-control name-input" />
-            <span asp-validation-for="MenuItem.Name" class="text-danger"></span>
+        <div class="row pb-2">
+            <div class="col-9">
+
+                <h2 class="text-primary pl-3">
+                    @(Model.MenuItem.Id!=0 ? "Update" : "Create") Menu Item
+                </h2>
+                <hr />
+
+                <div class="mb-3">
+                    <label asp-for="MenuItem.Name"></label>
+                    <input asp-for="MenuItem.Name" class="form-control name-input" />
+                    <span asp-validation-for="MenuItem.Name" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="MenuItem.Description"></label>
+                    <textarea asp-for="MenuItem.Description" class="form-control name-input"></textarea>
+                    <span asp-validation-for="MenuItem.Description" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="MenuItem.Price"></label>
+                    <input asp-for="MenuItem.Price" class="form-control name-input" />
+                    <span asp-validation-for="MenuItem.Price" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="MenuItem.Image"></label>
+                    <input type="file" name="files" id="uploadBox" class="form-control name-input" />
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="MenuItem.CategoryId"></label>
+                    <select asp-for="MenuItem.CategoryId" asp-items="Model.CategoryList" class="form-select">
+                        <option disabled selected>-Select Category</option>
+                    </select>
+                    <span asp-validation-for="MenuItem.CategoryId" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="MenuItem.FoodTypeId"></label>
+                    <select asp-for="MenuItem.FoodTypeId" asp-items="Model.FoodTypeList" class="form-select">
+                        <option disabled selected>-Select Food Type</option>
+                    </select>
+                    <span asp-validation-for="MenuItem.FoodTypeId" class="text-danger"></span>
+                </div>
+
+            </div>
+            <div class="col-3">
+                @if (Model.MenuItem.Id != 0)
+                {
+                    <img src="@Model.MenuItem.Image" class="w-100" style="border-radius:5px; border:1px solid #bbb9b9;" />
+                }
+            </div>
         </div>
-        <div class="mb-3">
-            <label asp-for="MenuItem.Description"></label>
-            <textarea asp-for="MenuItem.Description" class="form-control name-input"></textarea>
-            <span asp-validation-for="MenuItem.Description" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="MenuItem.Price"></label>
-            <input asp-for="MenuItem.Price" class="form-control name-input" />
-            <span asp-validation-for="MenuItem.Price" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="MenuItem.Image"></label>
-            <input type="file" name="files" id="uploadBox" class="form-control name-input" />
-        </div>
-        <div class="mb-3">
-            <label asp-for="MenuItem.CategoryId"></label>
-            <select asp-for="MenuItem.CategoryId" asp-items="Model.CategoryList" class="form-select">
-                <option disabled selected>-Select Category</option>
-            </select>
-            <span asp-validation-for="MenuItem.CategoryId" class="text-danger"></span>
-        </div>
-        <div class="mb-3">
-            <label asp-for="MenuItem.FoodTypeId"></label>
-            <select asp-for="MenuItem.FoodTypeId" asp-items="Model.FoodTypeList" class="form-select">
-                <option disabled selected>-Select Food Type</option>
-            </select>
-            <span asp-validation-for="MenuItem.CategoryId" class="text-danger"></span>
-        </div>
-        <button type="submit" class="btn px-5 btn-primary">Create</button>
+        @if (Model.MenuItem.Id != 0)
+        {
+            <button type="submit" class="btn px-5 btn-primary">Update</button>
+        }
+        else
+        {
+            <button type="submit" onclick="return ValidateInput()" class="btn px-5 btn-primary">Create</button>
+        }
         <a asp-page="Index" class="btn px-5 btn-secondary">Back to list</a>
     </div>
 </form>
+
 
 
 @*can add custom js code here*@
@@ -62,7 +88,21 @@
                 @*{ value: 'First.Name', title: 'First Name' },*@
                 @*{ value: 'Email', title: 'Email' },*@
             @*]*@
-        });</script>
+        });
+        function ValidateInput() {
+            if (document.querySelector('#uploadBox').value == "") {
+                Swal.fire({
+                    title: 'Oops...',
+                    text: 'Please select an Image!',
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                })
+                return false;
+            } else {
+                return true;
+	    }
+	}
+    </script>
     @{
         <partial name="_ValidationScriptsPartial" />
 

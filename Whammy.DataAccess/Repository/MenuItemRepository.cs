@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Whammy.DataAccess.Data;
 using Whammy.DataAccess.Repository.IRepository;
 using Whammy.Models;
@@ -12,6 +13,11 @@ namespace Whammy.DataAccess.Repository
         public MenuItemRepository(AppDbContext dbContext) : base(dbContext)
         {
             this.dbContext = dbContext;
+        }
+
+        public IEnumerable<MenuItem> GetDetails()
+        {
+            return dbContext.MenuItems.Include("Category").Include("FoodType").ToList();
         }
 
         public void Update(MenuItem menuItem)

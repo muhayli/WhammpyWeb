@@ -11,7 +11,7 @@ using Whammy.DataAccess.Data;
 namespace Whammy.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230206234801_AddedMenuItemsTable")]
+    [Migration("20230211012405_AddedMenuItemsTable")]
     partial class AddedMenuItemsTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

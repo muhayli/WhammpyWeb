@@ -9,18 +9,18 @@ namespace Whammy.Models
         [Key]
         public int Id { get; set; }
         [Required]
-        public string Name { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
-        public string Image { get; set; } = string.Empty;
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public string Image { get; set; }
         [Range(1, 1000, ErrorMessage = "Price should be in range 1-1000")]
         public double Price { get; set; }
         [Display(Name = "Food Type")]
         public int FoodTypeId { get; set; }
         [ForeignKey(nameof(FoodTypeId))]
-        public FoodType FoodType { get; set; } = new();
+        public FoodType FoodType { get; set; }
         [Display(Name = "Category")]
         public int CategoryId { get; set; }
-        public Category Category { get; set; } = new();
+        public Category Category { get; set; }
     }
 }
 

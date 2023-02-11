@@ -26,6 +26,7 @@ namespace Whammy.DataAccess.Repository
         public IEnumerable<T> GetAll(string? includeProps = null)
         {
             IQueryable<T> query = dbSet;
+
             if (includeProps != null)
             {
                 foreach (var prop in includeProps.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
