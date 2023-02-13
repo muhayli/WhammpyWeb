@@ -6,10 +6,10 @@ namespace Whammy.DataAccess.Repository.IRepository
     public interface IRepository<T> where T : class
     {
         //Get all
-        IEnumerable<T> GetAll(string? includeProps = null);
+        IEnumerable<T> GetAll(string? includeProps = null, Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null, Expression<Func<T, bool>>? filter = null);
 
         //Get single
-        T GetFirstOrDefault(Expression<Func<T, bool>>? filter = null);
+        T GetFirstOrDefault(Expression<Func<T, bool>>? filter = null, string? includeProps = null);
 
         //Add
         void Add(T entity);

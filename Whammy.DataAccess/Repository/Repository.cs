@@ -23,26 +23,48 @@ namespace Whammy.DataAccess.Repository
             dbSet.Add(entity);
         }
 
-        public IEnumerable<T> GetAll(string? includeProps = null)
+
+        public IEnumerable<T> GetAll(string? includeProps = null, Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null, Expression<Func<T, bool>>? filter = null)
         {
             IQueryable<T> query = dbSet;
+
+
+            //filter
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+            //include
+            if (includeProps != null)
+            {
+                foreach (var prop in includeProps.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(prop);
+                }
+            }
+            //order
+            if (orderBy != null)
+            {
+                return orderBy(query).ToList();
+            }
+            return query.ToList();
+        }
+
+        public T GetFirstOrDefault(Expression<Func<T, bool>>? filter = null, string? includeProps = null)
+        {
+            IQueryable<T> query = dbSet;
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
 
             if (includeProps != null)
             {
                 foreach (var prop in includeProps.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
-                    query.Include(prop);
+                    query = query.Include(prop);
                 }
-            }
-            return query.ToList();
-        }
-
-        public T GetFirstOrDefault(Expression<Func<T, bool>>? filter = null)
-        {
-            IQueryable<T> query = dbSet;
-            if (filter != null)
-            {
-                query = query.Where(filter);
             }
             return query.FirstOrDefault();
         }

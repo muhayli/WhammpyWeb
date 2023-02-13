@@ -15,10 +15,6 @@ namespace Whammy.DataAccess.Repository
             this.dbContext = dbContext;
         }
 
-        public IEnumerable<MenuItem> GetDetails()
-        {
-            return dbContext.MenuItems.Include("Category").Include("FoodType").ToList();
-        }
 
         public void Update(MenuItem menuItem)
         {

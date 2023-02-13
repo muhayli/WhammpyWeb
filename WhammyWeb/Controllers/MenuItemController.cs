@@ -26,7 +26,7 @@ namespace WhammyWeb.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var items = _unitOfWork.menuItem.GetDetails();
+            var items = _unitOfWork.menuItem.GetAll(includeProps: "Category,FoodType");
             return Ok(Json(new { data = items }));
         }
 
