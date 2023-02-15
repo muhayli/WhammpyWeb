@@ -1,18 +1,28 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Whammy.DataAccess.Data;
+using Microsoft.EntityFrameworkCore;
 using Whammy.DataAccess.Repository;
 using Whammy.DataAccess.Repository.IRepository;
+using Microsoft.AspNetCore.Identity;
+using Whammy.DataAccess.Data;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Whammy.Utility;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
+
 builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")
     ));
 
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+
+
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddSingleton<IEmailSender, EmailSender>();
+
 
 var app = builder.Build();
 
@@ -28,6 +38,7 @@ if (!app.Environment.IsDevelopment())
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseAuthentication(); ;
 
 app.UseAuthorization();
 

@@ -11,7 +11,7 @@
     "WhammyWeb": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "http://localhost:17640",
+      "applicationUrl": "http://localhost:21878",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

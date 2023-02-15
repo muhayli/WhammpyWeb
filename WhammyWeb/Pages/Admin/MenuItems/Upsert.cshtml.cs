@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Whammy.DataAccess.Data;
 using Whammy.DataAccess.Repository.IRepository;
 using Whammy.Models;
 
