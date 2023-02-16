@@ -21,6 +21,8 @@
     <None Remove="Controllers\" />
     <None Remove="Pages\Customer\Home\" />
     <None Remove="Microsoft.AspNetCore.Identity.UI" />
+    <None Remove="Microsoft.AspNetCore.Mvc.Core" />
+    <None Remove="Pages\Customer\Cart\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.10" />
@@ -44,6 +46,7 @@
     <Folder Include="wwwroot\images\MenuItems\" />
     <Folder Include="Controllers\" />
     <Folder Include="Pages\Customer\Home\" />
+    <Folder Include="Pages\Customer\Cart\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Whammy.Models\Whammy.Models.csproj">

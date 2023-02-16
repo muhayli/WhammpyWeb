@@ -13,6 +13,7 @@ namespace Whammy.DataAccess.Data
         public DbSet<FoodType> FoodTypes { get; set; }
         public DbSet<MenuItem> MenuItems { get; set; }
         public DbSet<AppUser> AppUsers { get; set; }
+        public DbSet<ShoppingCart> shoppingCarts { get; set; }
     }
 }
 

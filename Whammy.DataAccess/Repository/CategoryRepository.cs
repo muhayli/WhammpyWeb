@@ -13,10 +13,6 @@ namespace Whammy.DataAccess.Repository.IRepository
             this.dbContext = dbContext;
         }
 
-        public void Save()
-        {
-            dbContext.SaveChanges();
-        }
 
         public void Update(Category category)
         {

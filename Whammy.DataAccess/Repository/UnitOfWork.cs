@@ -14,11 +14,13 @@ namespace Whammy.DataAccess.Repository
             category = new CategoryRepository(dbContext);
             foodType = new FoodTypeRepository(dbContext);
             menuItem = new MenuItemRepository(dbContext);
+            shoppingCart = new ShoppingCartRepository(dbContext);
         }
 
         public ICategoryRepository category { get; private set; }
         public IFoodTypeRepository foodType { get; private set; }
         public IMenuItemRepository menuItem { get; private set; }
+        public IShoppingCartRepository shoppingCart { get; private set; }
 
 
         public void Dispose()
