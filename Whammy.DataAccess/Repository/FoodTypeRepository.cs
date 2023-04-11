@@ -21,4 +21,3 @@ namespace Whammy.DataAccess.Repository
         }
     }
 }
-

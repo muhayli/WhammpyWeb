@@ -2,7 +2,7 @@
 @model WhammyWeb.Pages.Customer.Cart.IndexModel
 
 <section class="h-100 h-custom">
-    <div class="container h-100 py-5">
+    <form class="container h-100 py-5" method="post">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="w-100 d-flex">
                 <a href="~/Customer/Home/Index" class="btn btn-info">Continue shopping</a>
@@ -15,6 +15,7 @@
                                 <th scope="col" class="h5">Shopping Bag</th>
                                 <th scope="col">Quantity</th>
                                 <th scope="col">Price</th>
+                                <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -36,29 +37,33 @@
                                     </th>
                                     <td class="align-middle">
                                         <div class="d-flex flex-row">
-                                            <button class="btn btn-link px-2"
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                                <i class="fas fa-minus"></i>
+                                            <button class="btn btn-link px-2" asp-page-handler="minus" asp-route-cartId="@item.Id">
+                                                <i class="bi bi-dash"></i>
                                             </button>
 
-                                            <input id="form1" asp-for="@item.Count" min="0" name="quantity"
+                                            <input id="form1" asp-for="@item.Count" min="0"
                                                    class="form-control form-control-sm" style="width: 70px;" />
 
-                                            <button class="btn btn-link px-2"
-                                                    onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                                <i class="fas fa-plus"></i>
+                                            <button class="btn btn-link px-2" type="submit" asp-page-handler="plus" asp-route-cartId="@item.Id">
+                                                <i class="bi bi-plus"></i>
                                             </button>
+
                                         </div>
                                     </td>
                                     <td class="align-middle">
                                         <p class="mb-0" style="font-weight: 500;">$@item.MenuItem.Price</p>
                                     </td>
+                                    <td class="align-middle">
+                                        <button class="btn bg-primary text-white" type="submit" asp-page-handler="remove" asp-route-cartId="@item.Id">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </td>
+
                                 </tr>
                             }
                         </tbody>
                     </table>
                 </div>
-
                 <div class="card shadow-2-strong mb-5 mb-lg-0" style="border-radius: 16px;">
                     <div class="card-body p-4">
 
@@ -70,9 +75,9 @@
                                     <h3 class="mb-2">$@Model.CartTotal</h3>
                                 </div>
 
-                                <button type="button" class="btn btn-primary" style="margin-left:auto;">
+                                <a href="Cart/Summary" class="btn btn-primary" style="margin-left:auto;">
                                     <span>Summary </span>
-                                </button>
+                                </a>
 
                             </div>
                         </div>
@@ -82,5 +87,5 @@
 
             </div>
         </div>
-    </div>
+    </form>
 </section>

@@ -14,6 +14,8 @@ namespace Whammy.DataAccess.Data
         public DbSet<MenuItem> MenuItems { get; set; }
         public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<ShoppingCart> shoppingCarts { get; set; }
+        public DbSet<OrderHeader> orderHeaders { get; set; }
+        public DbSet<OrderDetail> orderDetails { get; set; }
     }
 }
 

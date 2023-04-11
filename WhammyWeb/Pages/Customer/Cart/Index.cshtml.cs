@@ -39,5 +39,27 @@ namespace WhammyWeb.Pages.Customer.Cart
                 }
             }
         }
+        public IActionResult OnPostPlus(int cartId)
+        {
+            var cart = _unitOfWork.shoppingCart.GetFirstOrDefault(c => c.Id == cartId);
+            _unitOfWork.shoppingCart.IncrementCount(cart, 1);
+            return RedirectToPage("/Customer/Cart/Index");
+
+        }
+        public IActionResult OnPostMinus(int cartId)
+        {
+            var cart = _unitOfWork.shoppingCart.GetFirstOrDefault(c => c.Id == cartId);
+            _unitOfWork.shoppingCart.decrementCount(cart, 1);
+            return RedirectToPage("/Customer/Cart/Index");
+
+        }
+        public IActionResult OnPostRemove(int cartId)
+        {
+            var cart = _unitOfWork.shoppingCart.GetFirstOrDefault(c => c.Id == cartId);
+            _unitOfWork.shoppingCart.Remove(cart);
+            _unitOfWork.Save();
+            return RedirectToPage("/Customer/Cart/Index");
+
+        }
     }
 }

@@ -6,7 +6,7 @@ using Whammy.DataAccess.Repository.IRepository;
 
 namespace Whammy.DataAccess.Repository
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public class Repository<T> : IRepository.IRepository<T> where T : class
     {
         private readonly AppDbContext dbContext;
         public DbSet<T> dbSet;

@@ -7,6 +7,8 @@ namespace Whammy.DataAccess.Repository.IRepository
         IFoodTypeRepository foodType { get; }
         IMenuItemRepository menuItem { get; }
         IShoppingCartRepository shoppingCart { get; }
+        IOrderHeaderRepository orderHeader { get; }
+        IOrderDetailRepository orderDetail { get; }
 
         void Save();
         //void Dispose();

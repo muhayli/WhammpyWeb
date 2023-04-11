@@ -4,7 +4,7 @@ using Whammy.Models;
 
 namespace Whammy.DataAccess.Repository.IRepository
 {
-    public class CategoryRepository : Repository<Category>, ICategoryRepository
+    public class CategoryRepository : IRepository<Category>, ICategoryRepository
     {
         private readonly AppDbContext dbContext;
 
