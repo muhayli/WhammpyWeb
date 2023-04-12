@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Whammy.DataAccess.Migrations
 {
-    public partial class AddedIdentity : Migration
+    public partial class ChangeInOrderHeaderAppUserIdType : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -28,6 +28,9 @@ namespace Whammy.DataAccess.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -46,6 +49,33 @@ namespace Whammy.DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Categories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DisplayOrder = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FoodTypes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FoodTypes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -94,8 +124,8 @@ namespace Whammy.DataAccess.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
                 },
@@ -139,8 +169,8 @@ namespace Whammy.DataAccess.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(128)", maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -150,6 +180,119 @@ namespace Whammy.DataAccess.Migrations
                         name: "FK_AspNetUserTokens_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "orderHeaders",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    OrderTotal = table.Column<double>(type: "float", nullable: false),
+                    PickUpTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    OrderStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Comments = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    TransactionId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    pickupName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_orderHeaders", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_orderHeaders_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MenuItems",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<double>(type: "float", nullable: false),
+                    FoodTypeId = table.Column<int>(type: "int", nullable: false),
+                    CategoryId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MenuItems", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MenuItems_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MenuItems_FoodTypes_FoodTypeId",
+                        column: x => x.FoodTypeId,
+                        principalTable: "FoodTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "orderDetails",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    OrderHeaderId = table.Column<int>(type: "int", nullable: false),
+                    MenuItemId = table.Column<int>(type: "int", nullable: false),
+                    Count = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<double>(type: "float", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_orderDetails", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_orderDetails_MenuItems_MenuItemId",
+                        column: x => x.MenuItemId,
+                        principalTable: "MenuItems",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_orderDetails_orderHeaders_OrderHeaderId",
+                        column: x => x.OrderHeaderId,
+                        principalTable: "orderHeaders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "shoppingCarts",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MenuItemId = table.Column<int>(type: "int", nullable: false),
+                    Count = table.Column<int>(type: "int", nullable: false),
+                    AppUserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_shoppingCarts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_shoppingCarts_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_shoppingCarts_MenuItems_MenuItemId",
+                        column: x => x.MenuItemId,
+                        principalTable: "MenuItems",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -192,6 +335,41 @@ namespace Whammy.DataAccess.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MenuItems_CategoryId",
+                table: "MenuItems",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MenuItems_FoodTypeId",
+                table: "MenuItems",
+                column: "FoodTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_orderDetails_MenuItemId",
+                table: "orderDetails",
+                column: "MenuItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_orderDetails_OrderHeaderId",
+                table: "orderDetails",
+                column: "OrderHeaderId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_orderHeaders_AppUserId",
+                table: "orderHeaders",
+                column: "AppUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_shoppingCarts_AppUserId",
+                table: "shoppingCarts",
+                column: "AppUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_shoppingCarts_MenuItemId",
+                table: "shoppingCarts",
+                column: "MenuItemId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -212,10 +390,28 @@ namespace Whammy.DataAccess.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "orderDetails");
+
+            migrationBuilder.DropTable(
+                name: "shoppingCarts");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "orderHeaders");
+
+            migrationBuilder.DropTable(
+                name: "MenuItems");
+
+            migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "FoodTypes");
         }
     }
 }

@@ -102,7 +102,6 @@ namespace WhammyWeb.Pages.Admin.MenuItems
         {
 
             var oldImagePath = Path.Combine(_webRootPath, ObjImageFromDb.TrimStart('\\').Replace('\\', Path.DirectorySeparatorChar)); //replace only for macos from "\" to "/"
-            Console.WriteLine(oldImagePath);
             if (System.IO.File.Exists(oldImagePath))
             {
                 System.IO.File.Delete(oldImagePath);

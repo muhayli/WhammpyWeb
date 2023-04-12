@@ -17,6 +17,8 @@ namespace Whammy.DataAccess.Repository
             shoppingCart = new ShoppingCartRepository(dbContext);
             orderDetail = new OrderDetailRepository(dbContext);
             orderHeader = new OrderHeaderRepository(dbContext);
+            orderHeader = new OrderHeaderRepository(dbContext);
+            appUser = new AppUserRepository(dbContext);
         }
 
         public ICategoryRepository category { get; private set; }
@@ -25,6 +27,7 @@ namespace Whammy.DataAccess.Repository
         public IShoppingCartRepository shoppingCart { get; private set; }
         public IOrderDetailRepository orderDetail { get; private set; }
         public IOrderHeaderRepository orderHeader { get; private set; }
+        public IAppUserRepository appUser { get; private set; }
 
 
         public void Dispose()

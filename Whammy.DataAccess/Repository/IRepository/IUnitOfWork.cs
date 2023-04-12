@@ -9,6 +9,7 @@ namespace Whammy.DataAccess.Repository.IRepository
         IShoppingCartRepository shoppingCart { get; }
         IOrderHeaderRepository orderHeader { get; }
         IOrderDetailRepository orderDetail { get; }
+        IAppUserRepository appUser { get; }
 
         void Save();
         //void Dispose();

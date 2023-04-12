@@ -7,8 +7,8 @@ namespace Whammy.Models
     {
         public int Id { get; set; }
 
-        public int OrderId { get; set; }
-        [ForeignKey(nameof(OrderId))]
+        public int OrderHeaderId { get; set; }
+        [ForeignKey(nameof(OrderHeaderId))]
         public OrderHeader OrderHeader { get; set; }
 
         public int MenuItemId { get; set; }

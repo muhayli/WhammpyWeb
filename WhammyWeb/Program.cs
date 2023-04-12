@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Whammy.DataAccess.Data;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Whammy.Utility;
+using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,8 @@ builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 builder.Services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(
     builder.Configuration.GetConnectionString("DefaultConnection")
     ));
+
+builder.Services.Configure<StripSettings>(builder.Configuration.GetSection("Stripe"));
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
@@ -46,6 +49,11 @@ if (!app.Environment.IsDevelopment())
 app.UseStaticFiles();
 
 app.UseRouting();
+
+string key = builder.Configuration.GetSection("Stripe:SecertKey").Get<string>();
+
+StripeConfiguration.ApiKey = key;
+
 app.UseAuthentication(); ;
 
 app.UseAuthorization();

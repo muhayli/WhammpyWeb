@@ -319,7 +319,7 @@ namespace Whammy.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("OrderId")
+                    b.Property<int>("OrderHeaderId")
                         .HasColumnType("int");
 
                     b.Property<double>("Price")
@@ -329,7 +329,7 @@ namespace Whammy.DataAccess.Migrations
 
                     b.HasIndex("MenuItemId");
 
-                    b.HasIndex("OrderId");
+                    b.HasIndex("OrderHeaderId");
 
                     b.ToTable("orderDetails");
                 });
@@ -342,9 +342,9 @@ namespace Whammy.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("AppUser")
+                    b.Property<string>("AppUserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Comments")
                         .HasColumnType("nvarchar(max)");
@@ -359,6 +359,9 @@ namespace Whammy.DataAccess.Migrations
                     b.Property<double>("OrderTotal")
                         .HasColumnType("float");
 
+                    b.Property<string>("PaymentIntentId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -366,17 +369,16 @@ namespace Whammy.DataAccess.Migrations
                     b.Property<DateTime>("PickUpTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("TransactionId")
+                    b.Property<string>("SessionId")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
 
                     b.Property<string>("pickupName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
 
                     b.ToTable("orderHeaders");
                 });
@@ -503,13 +505,24 @@ namespace Whammy.DataAccess.Migrations
 
                     b.HasOne("Whammy.Models.OrderHeader", "OrderHeader")
                         .WithMany()
-                        .HasForeignKey("OrderId")
+                        .HasForeignKey("OrderHeaderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("MenuItem");
 
                     b.Navigation("OrderHeader");
+                });
+
+            modelBuilder.Entity("Whammy.Models.OrderHeader", b =>
+                {
+                    b.HasOne("Whammy.Models.AppUser", "AppUser")
+                        .WithMany()
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("AppUser");
                 });
 
             modelBuilder.Entity("Whammy.Models.ShoppingCart", b =>
