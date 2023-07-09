@@ -2,6 +2,9 @@
 
 Whammy Web is a full-stack ASP.NET Core web application designed to provide a comprehensive e-commerce platform. This application offers various features, including authentication, authorization, payment handling with Stripe, and support for multiple user roles. Whether you're a customer, an administrator, or a seller, Whammy Web ensures a seamless and secure shopping experience.
 
+Whammy Web follows industry best practices, incorporating the Unit of Work pattern and N-tier architecture. The application leverages the Unit of Work pattern to provide a consistent and efficient way to manage database transactions and ensure data integrity. The N-tier architecture separates the application into distinct layers, including presentation, business logic, and data access. This architecture promotes modularity, scalability, and maintainability.
+
+
 ## Features
 
 - **User Authentication**: Whammy Web enables secure user authentication, allowing customers and sellers to create and manage their accounts easily. This ensures that each user's data and transactions are protected.
@@ -17,6 +20,16 @@ Whammy Web is a full-stack ASP.NET Core web application designed to provide a co
 - **Order Management**: Whammy Web includes an intuitive order management system for both customers and sellers. Customers can view their order history, track shipments, and manage returns, while sellers can manage inventory, process orders, and update order statuses.
 
 - **User Roles**: Whammy Web supports different user roles, including customers, administrators, and sellers. Each role has specific functionalities and permissions, ensuring appropriate access and management capabilities for different user types.
+
+## Best Practices
+
+Whammy Web follows industry best practices, including:
+
+- **Unit of Work Pattern**: The application leverages the Unit of Work pattern, which provides a consistent and efficient way to manage database transactions and ensure data integrity.
+
+- **N-tier Architecture**: Whammy Web adopts the N-tier architecture, separating the application into distinct layers such as presentation, business logic, and data access. This architecture promotes modularity, scalability, and maintainability.
+
+By incorporating these best practices, Whammy Web aims to provide a robust and well-structured codebase that is scalable, maintainable, and adheres to industry standards.
 
 ## Installation and Setup
 
