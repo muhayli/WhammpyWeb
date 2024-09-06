@@ -55,15 +55,7 @@ Whammy Web is built using the following technologies:
 - SQL Server: Relational database management system
 - HTML, CSS, JavaScript: Front-end development
 - Bootstrap: Front-end CSS framework for responsive design
-- Stripe: Payment gateway integration
-
-## Contributing
-
-We welcome contributions from the community! If you'd like to contribute to Whammy Web, please follow our [contribution guidelines](CONTRIBUTING.md) for more information.
-
-## License
-
-Whammy Web is licensed under the [MIT License](LICENSE). Feel free to use, modify, and distribute the code as per the terms of the license.
+- Stripe: Payment gateway integration 
 
 ## Acknowledgements
 
@@ -73,5 +65,3 @@ We would like to express our gratitude to the open-source community for their in
 
 - email mohidenjama@gmail.com
 - twitter @mobinadam
-
-*Note: Replace `your-username` in the installation instructions with your actual GitHub username.*
